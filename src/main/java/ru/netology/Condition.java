@@ -1,18 +1,26 @@
 package ru.netology;
 
-public class ConditionerAdvanced {
-    private String name;
+public class Condition {
     private int maxTemperature;
     private int minTemperature;
     private int currentTemperature;
-    private boolean on;
 
-    public String getName() {
-        return name;
+    public void increaseCurrentTemperature() {
+        if (currentTemperature == getMaxTemperature()) {
+            return;
+        }
+        this.currentTemperature++;
+
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void decreaseCurrentTemperature() {
+        if (currentTemperature > minTemperature) {
+            this.currentTemperature--;
+        }
+        if (currentTemperature == minTemperature) {
+            return;
+        }
+
     }
 
     public int getMaxTemperature() {
@@ -36,14 +44,17 @@ public class ConditionerAdvanced {
     }
 
     public void setCurrentTemperature(int currentTemperature) {
-        if (currentTemperature > maxTemperature) {
+        if (currentTemperature > getMaxTemperature()) {
+            this.currentTemperature = maxTemperature;
             return;
         }
-        if (currentTemperature < minTemperature) {
+        if (currentTemperature < getMinTemperature()) {
+            this.currentTemperature = minTemperature;
             return;
         }
-        // здесь уверены, что все проверки прошли
         this.currentTemperature = currentTemperature;
+        // здесь уверены, что все проверки прошли
+
     }
 
 //    public void setCurrentTemperature(int currentTemperature) {
@@ -54,13 +65,6 @@ public class ConditionerAdvanced {
 //        }
 //    }
 
-    public boolean isOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
-    }
 }
 
 
