@@ -1,6 +1,5 @@
 package ru.netology;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -11,43 +10,42 @@ class ConditionTest {
     @ParameterizedTest
     @CsvSource(
             value= {
-                    "30,-30,-31,-29",
-                    "30,-30,-30,-29",
-                    "30,-30,0,1",
-                    "30,-30,29,30",
-                    "30,-30,30,30",
-                    "30,-30,31,30"
+                    "'set temperature below minimum',30,-30,-31,-29",
+                    "'set minimum current temperature',30,-30,-30,-29",
+                    "'set current temperature in the middle',30,-30,0,1",
+                    "'set current temperature is pre-maximal',30,-30,29,30",
+                    "'set maximum current temperature',30,-30,30,30",
+                    "'set temperature is higher than maximum',30,-30,31,30"
             }
     )
 
-    public void increaseCurrentTemperature(int setMaxTemperature , int setMinTemperature, int setCurrentTemperature, int expected) {
+    public void increaseCurrentTemperature(String message, int maxTemperature , int minTemperature, int currentTemperature, int expected) {
         Condition condition = new Condition();
-        condition.setMaxTemperature(setMaxTemperature);
-        condition.setMinTemperature(setMinTemperature);
-        condition.setCurrentTemperature(setCurrentTemperature);
+        condition.setMaxTemperature(maxTemperature);
+        condition.setMinTemperature(minTemperature);
+        condition.setCurrentTemperature(currentTemperature);
         condition.increaseCurrentTemperature();
-        assertEquals(expected, condition.getCurrentTemperature());
+        assertEquals(expected, condition.getCurrentTemperature(), message);
     }
 
     @ParameterizedTest
     @CsvSource(
             value= {
-                    "30,-30,29,28",
-                    "30,-30,30,29",
-                    "30,-30,31,29",
-                    "30,-30,0,-1",
-                    "30,-30,-29,-30",
-                    "30,-30,-30,-30",
-                    "30,-30,-31,-30"
+                    "'set maximum current temperature',30,-30,30,29",
+                    "'set temperature is higher than maximum',30,-30,31,29",
+                    "'set current temperature in the middle',30,-30,0,-1",
+                    "'set current temperature is pre-minimal',30,-30,-29,-30",
+                    "'set minimum current temperature',30,-30,-30,-30",
+                    "'set temperature below minimum',30,-30,-31,-30"
             }
     )
-    public void decreaseCurrentTemperature(int setMaxTemperature , int setMinTemperature, int setCurrentTemperature, int expected) {
+    public void decreaseCurrentTemperature(String message, int maxTemperature , int minTemperature, int currentTemperature, int expected) {
         Condition condition = new Condition();
-        condition.setMaxTemperature(setMaxTemperature);
-        condition.setMinTemperature(setMinTemperature);
-        condition.setCurrentTemperature(setCurrentTemperature);
+        condition.setMaxTemperature(maxTemperature);
+        condition.setMinTemperature(minTemperature);
+        condition.setCurrentTemperature(currentTemperature);
         condition.decreaseCurrentTemperature();
-        assertEquals(expected, condition.getCurrentTemperature());
+        assertEquals(expected, condition.getCurrentTemperature(), message);
     }
 
 }
